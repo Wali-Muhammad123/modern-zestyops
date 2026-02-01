@@ -5,13 +5,13 @@ WORKDIR /app
 
 COPY package.json bun.lock /app/
 
-COPY frontend/package.json /app/frontend/
+COPY web-app/package.json /app/web-app/
 
-WORKDIR /app/frontend
+WORKDIR /app/web-app
 
 RUN bun install
 
-COPY ./frontend /app/frontend
+COPY ./web-app /app/web-app
 ARG VITE_API_URL
 
 RUN bun run build
@@ -20,7 +20,7 @@ RUN bun run build
 # Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
 FROM nginx:1
 
-COPY --from=build-stage /app/frontend/dist/ /usr/share/nginx/html
+COPY --from=build-stage /app/web-app/dist/ /usr/share/nginx/html
 
-COPY ./frontend/nginx.conf /etc/nginx/conf.d/default.conf
-COPY ./frontend/nginx-backend-not-found.conf /etc/nginx/extra-conf.d/backend-not-found.conf
+COPY ./web-app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./web-app/nginx-backend-not-found.conf /etc/nginx/extra-conf.d/backend-not-found.conf

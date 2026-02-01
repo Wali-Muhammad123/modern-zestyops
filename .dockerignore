@@ -1,0 +1,46 @@
+# Git
+.git
+.gitignore
+
+# Docker
+.dockerignore
+
+# Environment
+.env
+.venv
+venv
+env
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info
+.coverage
+htmlcov
+.pytest_cache
+.mypy_cache
+
+# Node
+node_modules
+*/node_modules
+npm-debug.log
+yarn-error.log
+pnpm-debug.log
+bun.lockb
+
+# Dist
+dist
+*/dist
+build
+*/build
+.output
+.nuxt
+.next
+.cache
+
+# OS
+.DS_Store
+Thumbs.db

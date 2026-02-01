@@ -81,6 +81,8 @@ services:
     # TODO: remove once coverage is done locally
     volumes:
       - ./backend/htmlcov:/app/backend/htmlcov
+      - ./backend:/app/backend
+      - /app/backend/.venv
     environment:
       SMTP_HOST: "mailcatcher"
       SMTP_PORT: "1025"
@@ -103,6 +105,23 @@ services:
       args:
         - VITE_API_URL=http://localhost:8000
         - NODE_ENV=development
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+
+  web-app:
+    restart: "no"
+    ports:
+      - "5174:80"
+    build:
+      context: .
+      dockerfile: web-app/Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:8000
+        - NODE_ENV=development
+    volumes:
+      - ./web-app:/app/web-app
+      - /app/web-app/node_modules
 
   playwright:
     build:
